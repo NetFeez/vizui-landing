@@ -56,6 +56,9 @@ dependencies:
           dist/**/*.{js,d.ts,css}:
             to: lib/vizui.components
             map: ^dist
+          components/**/*.css:
+            to: lib/vizui.components
+            map: ^components
     resolver: {}
 # NPM dependencies to install and build, each an object with a name and a version.
 npmDependencies: []
