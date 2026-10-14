@@ -1,0 +1,74 @@
+@layer component {
+    @property --surface-glass {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(13, 20, 36, 0.72);
+    }
+    @property --line {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.08);
+    }
+    @property --radius-xl {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 16px;
+    }
+    @property --space-lg {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 24px;
+    }
+    @property --space-md {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 16px;
+    }
+    @property --shadow-glass {
+        syntax: "*";
+        inherits: true;
+        initial-value: 0 12px 35px -10px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+    }
+    @property --hairline {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.13);
+    }
+    @property --space-sm {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 12px;
+    }
+
+    .Card {
+        position: relative;
+        background: var(--surface-glass);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-xl);
+        padding: var(--space-lg);
+        margin: 0 0 var(--space-md);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        box-shadow: var(--shadow-glass);
+        transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+
+        &:hover {
+            border-color: var(--hairline);
+            transform: translateY(-1px);
+            box-shadow: 0 18px 42px -14px rgba(0, 0, 0, 0.7), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+        }
+
+        & > .title {
+            margin: 0 0 var(--space-sm);
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.1px;
+        }
+
+        & > .body {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+    }
+}

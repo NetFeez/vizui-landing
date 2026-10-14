@@ -1,0 +1,150 @@
+@layer component {
+    @property --muted {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #94a3b8;
+    }
+    @property --danger {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #fb7185;
+    }
+    @property --space-sm {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 12px;
+    }
+    @property --ink {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #f1f5f9;
+    }
+    @property --font-mono {
+        syntax: "*";
+        inherits: true;
+        initial-value: ui-monospace, "Cascadia Code", "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    }
+    @property --soft {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #cbd5e1;
+    }
+    @property --line-faint {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.05);
+    }
+    @property --primary {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #2563eb;
+    }
+    @property --line {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.08);
+    }
+    @property --radius-xs {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 4px;
+    }
+    @property --surface-alt {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #141b2e;
+    }
+
+    .RepoCard {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-width: 0;
+
+        & > .message {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+
+            &.is-error { color: var(--danger); }
+        }
+
+        & > .body {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            gap: var(--space-sm);
+            min-width: 0;
+        }
+
+        & .ident {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+
+            & > strong {
+                color: var(--ink);
+                font-size: 14px;
+                font-weight: 700;
+            }
+        }
+
+        & .full {
+            color: var(--muted);
+            font-family: var(--font-mono);
+            font-size: 12px;
+        }
+
+        & .description {
+            margin: 0;
+            color: var(--soft);
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        & .foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+            margin-top: auto;
+            padding-top: var(--space-sm);
+            border-top: 1px solid var(--line-faint);
+        }
+
+        & .meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            color: var(--muted);
+            font-family: var(--font-mono);
+            font-size: 12px;
+        }
+
+        & .lang {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--ink);
+        }
+
+        & .lang > .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+
+        & .license {
+            padding: 4px 10px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-xs);
+            background: var(--surface-alt);
+            color: var(--muted);
+            font-family: var(--font-mono);
+            font-size: 12px;
+        }
+    }
+}

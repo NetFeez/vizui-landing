@@ -1,0 +1,16 @@
+{
+  "name": "vizui-page",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Presentation page built with vizui, mirroring the client architecture.",
+  "type": "module",
+  "scripts": {
+    "build": "npm i && npx dep install --decorate=false && npx dep run build --decorate=false && npx tsc",
+    "dev": "npx tsc -p tsconfig.json --watch"
+  },
+  "devDependencies": {
+    "depflow": "^3.0.0-dev.13",
+    "happy-dom": "^20.14.5",
+    "typescript": "^7.0.2"
+  }
+}

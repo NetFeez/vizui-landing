@@ -1,0 +1,256 @@
+@layer component {
+    @property --line-faint {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.05);
+    }
+    @property --space-lg {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 24px;
+    }
+    @property --radius-lg {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 12px;
+    }
+    @property --ink {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #f1f5f9;
+    }
+    @property --accent {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #60a5fa;
+    }
+    @property --font-mono {
+        syntax: "*";
+        inherits: true;
+        initial-value: ui-monospace, "Cascadia Code", "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    }
+    @property --line {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.08);
+    }
+    @property --surface-glass {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(13, 20, 36, 0.72);
+    }
+    @property --muted {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #94a3b8;
+    }
+    @property --surface-alt {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #141b2e;
+    }
+    @property --accent-soft {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #16223f;
+    }
+    @property --hairline {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.13);
+    }
+    @property --ring {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #3b82f6;
+    }
+    @property --surface {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #0d1322;
+    }
+    @property --radius-xs {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 4px;
+    }
+    @property --bg {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #080c14;
+    }
+    @property --faint {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #64748b;
+    }
+    @property --glow-accent {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(59, 130, 246, 0.45);
+    }
+
+    .Navbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        width: 100%;
+        padding: 0 clamp(16px, 4vw, 40px);
+        background: rgba(8, 12, 20, 0.85);
+        border-bottom: 1px solid var(--line-faint);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+
+        & > .inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-lg);
+            width: 100%;
+            max-width: 1200px;
+            min-height: 72px;
+            margin: 0 auto;
+            padding: 12px 0;
+        }
+
+        & .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: none;
+
+            & > .Logo {
+                align-items: center;
+                gap: 10px;
+                height: auto;
+                padding: 0;
+
+                & > .image {
+                    height: 36px;
+                    width: 36px;
+                    border-radius: var(--radius-lg);
+                    flex: none;
+                }
+
+                & > .text {
+                    margin: 0;
+                    font-size: 24px;
+                    font-weight: 900;
+                    letter-spacing: -0.8px;
+                    line-height: 1;
+                    color: var(--ink);
+                }
+            }
+
+            & > .version {
+                padding: 2px 8px;
+                border: 1px solid rgba(59, 130, 246, 0.3);
+                border-radius: 999px;
+                background: rgba(59, 130, 246, 0.1);
+                color: var(--accent);
+                font-family: var(--font-mono);
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 0.5px;
+            }
+        }
+
+        & .links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: var(--surface-glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        & .links > .Navbar-link {
+            padding: 6px 14px;
+            border-radius: 999px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: color 130ms ease, background 130ms ease;
+
+            &:hover { background: var(--surface-alt); color: var(--ink); text-decoration: none; }
+
+            &.active {
+                background: var(--accent-soft);
+                color: var(--accent);
+            }
+        }
+
+        & .actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: none;
+        }
+
+        & .github {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border: 1px solid var(--hairline);
+            border-radius: var(--radius-lg);
+            background: var(--surface-alt);
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            transition: border-color 130ms ease, color 130ms ease, background 130ms ease, transform 100ms ease;
+
+            &:hover { border-color: var(--ring); color: var(--ink); background: var(--surface); text-decoration: none; }
+            &:active { transform: scale(0.95); }
+        }
+
+        & .github .icon { width: 16px; height: 16px; }
+
+        & .github .sep { width: 1px; height: 16px; background: var(--hairline); }
+
+        & .github .star {
+            padding: 1px 6px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-xs);
+            background: var(--bg);
+            color: var(--faint);
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        & .doc {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: var(--radius-lg);
+            background: #2563eb;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            box-shadow: 0 0 40px -12px var(--glow-accent);
+            transition: box-shadow 150ms ease, filter 150ms ease, transform 150ms ease;
+
+            &:hover { background: #3b82f6; box-shadow: 0 0 50px -10px var(--glow-accent); transform: translateY(-1px); text-decoration: none; }
+
+            & > svg { width: 14px; height: 14px; }
+        }
+
+        @media (max-width: 1040px) {
+            & > .inner > .links { display: none; }
+        }
+
+        @media (max-width: 560px) {
+            & .github { display: none; }
+        }
+    }
+}

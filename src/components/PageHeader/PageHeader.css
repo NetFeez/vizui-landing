@@ -1,0 +1,35 @@
+@layer component {
+    @property --space-lg {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 24px;
+    }
+    @property --space-xs {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 8px;
+    }
+    @property --muted {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #94a3b8;
+    }
+
+    .PageHeader {
+        margin: 0 0 var(--space-lg);
+
+        & > .title {
+            margin: 0;
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        & > .description {
+            margin: var(--space-xs) 0 0;
+            max-width: 60ch;
+            color: var(--muted);
+            font-size: 15px;
+        }
+    }
+}

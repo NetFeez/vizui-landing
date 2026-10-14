@@ -1,0 +1,114 @@
+@layer page {
+    @property --space-sm {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 12px;
+    }
+    @property --space-2xl {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 48px;
+    }
+    @property --space-lg {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 24px;
+    }
+    @property --radius-sm {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 6px;
+    }
+    @property --space-md {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 16px;
+    }
+    @property --line {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.08);
+    }
+    @property --danger {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #fb7185;
+    }
+    @property --surface {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #0d1322;
+    }
+    @property --surface-alt {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #141b2e;
+    }
+    @property --radius-xs {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 4px;
+    }
+
+    .ArchitecturePage {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 1120px;
+
+        & > .PageHeader { margin-bottom: var(--space-sm); }
+
+        & > .body {
+            display: grid;
+            grid-template-columns: 220px minmax(0, 1fr);
+            gap: var(--space-2xl);
+            align-items: start;
+        }
+
+        & > .body > .toc {
+            position: sticky;
+            top: calc(84px + var(--space-lg));
+            max-height: calc(100vh - 96px);
+            overflow-y: auto;
+            scrollbar-width: none;
+
+            &::-webkit-scrollbar { display: none; }
+
+            & > .Toc {
+                flex-direction: column;
+                align-items: stretch;
+
+                & > .Toc-link { border-radius: var(--radius-sm); }
+            }
+        }
+
+        & > .body > .content {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+            min-width: 0;
+            max-width: 780px;
+        }
+
+        & > .body > .content > section > .Card > .body > .error {
+            margin: 0;
+            padding: var(--space-md);
+            border: 1px solid var(--line);
+            border-left: 3px solid var(--danger);
+            border-radius: var(--radius-sm);
+            background: var(--surface);
+            color: var(--danger);
+            font-size: 13px;
+        }
+
+        & > .body > .content > section > .Card > .body > p > code,
+        & > .body > .content > section > .Card > .body > .CodeBlock > code {
+            background: var(--surface-alt);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-xs);
+            padding: 1px 5px;
+            font-size: 12px;
+        }
+    }
+}
+

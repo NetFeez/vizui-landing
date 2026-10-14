@@ -1,0 +1,77 @@
+{
+  "$schema": ".depflow/schema.json",
+  "outDir": "dist",
+  "tsconfig": "./tsconfig.json",
+  "importmap": null,
+  "actions": {
+    "build": [
+      {
+        "extract": {
+          "src/**/*.css": {
+            "to": "dist",
+            "map": "^src"
+          }
+        }
+      }
+    ]
+  },
+  "resolver": {
+        "vizui/jsx-runtime": {
+          "local": "lib/vizui/jsx-runtime.js",
+          "type": "lib/vizui/jsx-runtime.d.ts"
+        },
+        "vizui": {
+          "local": "lib/vizui/index.js",
+          "type": "lib/vizui/index.d.ts"
+        },
+        "vizui/*": "lib/vizui/*",
+        "vizui.components/*": "lib/vizui.components/*"
+  },
+  "dependencies": [
+    {
+      "name": "NetFeez/vizui",
+      "repo": "https://github.com/NetFeez/vizui.git",
+      "tag": "dev",
+      "builder": [
+        {
+          "run": [
+            "npm i",
+            "npm run build"
+          ]
+        },
+        {
+          "extract": {
+            "dist/**/*.{js,d.ts}": {
+              "to": "lib/vizui",
+              "map": "^dist"
+            }
+          }
+        }
+      ],
+      "resolver": {}
+    },
+    {
+      "name": "NetFeez/vizui.components",
+      "repo": "https://github.com/NetFeez/vizui.components.git",
+      "tag": "dev",
+      "builder": [
+        {
+          "run": [
+            "npm i",
+            "npm run build"
+          ]
+        },
+        {
+          "extract": {
+            "dist/**/*.{js,d.ts,css}": {
+              "to": "lib/vizui.components",
+              "map": "^dist"
+            }
+          }
+        }
+      ],
+      "resolver": {}
+    }
+  ],
+  "npmDependencies": []
+}

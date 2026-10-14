@@ -1,0 +1,200 @@
+@layer page {
+    @property --space-lg {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 24px;
+    }
+    @property --space-md {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 16px;
+    }
+    @property --space-sm {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 12px;
+    }
+    @property --muted {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #94a3b8;
+    }
+    @property --space-xs {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 8px;
+    }
+    @property --surface-alt {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #141b2e;
+    }
+    @property --line {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.08);
+    }
+    @property --hairline {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.13);
+    }
+    @property --faint {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #64748b;
+    }
+    @property --ink {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #f1f5f9;
+    }
+    @property --accent {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #60a5fa;
+    }
+    @property --glow-accent {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(59, 130, 246, 0.45);
+    }
+
+    .FeaturesPage {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-lg);
+        max-width: 900px;
+
+        & > .fp-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: var(--space-md);
+        }
+
+        & > .Card > .body > .note {
+            margin: 0 0 var(--space-sm);
+            color: var(--muted);
+            font-size: 13px;
+            max-width: 70ch;
+        }
+
+        & > .Card > .body > .list {
+            margin: 0;
+            padding-left: 1.2em;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.55;
+        }
+
+        & > .fp-grid > .Card > .body > p > code,
+        & > .Card > .body > .fp-table > tbody > tr > th > code {
+            background: var(--surface-alt);
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            padding: 1px 5px;
+            font-size: 12px;
+        }
+
+        & > .Card > .body > .fp-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13.5px;
+
+            & > thead > tr > th {
+                text-align: left;
+                padding: var(--space-sm) var(--space-md);
+                border-bottom: 1px solid var(--hairline);
+                color: var(--faint);
+                font-weight: 600;
+                font-size: 12px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            & > tbody > tr > th,
+            & > tbody > tr > td {
+                padding: var(--space-sm) var(--space-md);
+                border-bottom: 1px solid var(--line);
+                vertical-align: top;
+            }
+
+            & > tbody > tr > th {
+                text-align: left;
+                font-weight: 600;
+                white-space: nowrap;
+            }
+
+            & > tbody > tr > td {
+                color: var(--muted);
+            }
+
+            & > tbody > tr > td:last-child {
+                color: var(--ink);
+            }
+
+            & > tbody > tr:last-child > th,
+            & > tbody > tr:last-child > td {
+                border-bottom: none;
+            }
+        }
+
+        & > .Card > .body > .faq {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+
+            & > .fp-faq-item {
+                border-bottom: 1px solid var(--line);
+                padding: var(--space-sm) 0;
+
+                & > summary {
+                    cursor: pointer;
+                    list-style: none;
+                    display: flex;
+                    align-items: center;
+                    gap: var(--space-sm);
+                    font-weight: 600;
+                    font-size: 14px;
+                    user-select: none;
+
+                    &::-webkit-details-marker { display: none; }
+
+                    &::before {
+                        content: "+";
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 18px;
+                        height: 18px;
+                        border: 1px solid var(--hairline);
+                        border-radius: 999px;
+                        color: var(--accent);
+                        font-size: 13px;
+                        font-weight: 700;
+                        transition: transform 160ms ease;
+                    }
+
+                    &:hover::before { border-color: var(--accent); box-shadow: 0 0 10px var(--glow-accent); }
+                }
+
+                & > p {
+                    margin: var(--space-sm) 0 0;
+                    padding-left: 34px;
+                    color: var(--muted);
+                    font-size: 14px;
+                    line-height: 1.6;
+                }
+
+                &[open] > summary::before { content: "–"; transform: rotate(180deg); }
+            }
+        }
+
+        @media (max-width: 760px) {
+            & > .fp-grid { grid-template-columns: 1fr; }
+        }
+    }
+}

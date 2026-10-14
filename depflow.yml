@@ -1,0 +1,61 @@
+# Depflow Configuration File
+# You can use the Red Hat extension for JSON schema validation in VSCode: "$schema: .depflow/schema.json"
+
+
+# Path to the JSON Schema describing the configuration. Used by editors and tools to provide validation, autocompletion and other features.
+$schema: .depflow/schema.json
+# Output directory for built files. Can be relative or absolute. Defaults to "dist".
+outDir: dist
+# Path to the tsconfig.json file. Can be relative or absolute. Defaults to "tsconfig.json".
+tsconfig: ./tsconfig.json
+# Path to the importmap.json file. Can be relative or absolute. Defaults to "importmap.json".
+importmap: null
+# Named build actions. Each action runs a pipeline of run, extract and transform steps.
+actions:
+  build:
+    - extract:
+        src/**/*.css:
+          to: dist
+          map: ^src
+# Mapping of dependency names to their resolution targets (local file or CDN). Paths are resolved relative to this folder.
+resolver:
+  vizui/jsx-runtime:
+    local: lib/vizui/jsx-runtime.js
+    type: lib/vizui/jsx-runtime.d.ts
+  vizui:
+    local: lib/vizui/index.js
+    type: lib/vizui/index.d.ts
+  vizui/*: lib/vizui/*
+  vizui.components/*: lib/vizui.components/*
+# Git dependencies to clone and build, each an object with a name and a repo.
+dependencies:
+  - name: NetFeez/vizui
+    repo: https://github.com/NetFeez/vizui.git
+    tag: dev
+    builder:
+      - run:
+          - npm i
+          - npm run build
+        maxTimeMs: 60000
+        allowFails: false
+      - extract:
+          dist/**/*.{js,d.ts}:
+            to: lib/vizui
+            map: ^dist
+    resolver: {}
+  - name: NetFeez/vizui.components
+    repo: https://github.com/NetFeez/vizui.components.git
+    tag: dev
+    builder:
+      - run:
+          - npm i
+          - npm run build
+        maxTimeMs: 60000
+        allowFails: false
+      - extract:
+          dist/**/*.{js,d.ts,css}:
+            to: lib/vizui.components
+            map: ^dist
+    resolver: {}
+# NPM dependencies to install and build, each an object with a name and a version.
+npmDependencies: []

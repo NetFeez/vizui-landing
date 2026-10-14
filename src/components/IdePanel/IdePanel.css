@@ -1,0 +1,168 @@
+@layer component {
+    @property --line {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.08);
+    }
+    @property --radius-xl {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 16px;
+    }
+    @property --accent-deep {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #0d1322;
+    }
+    @property --shadow-glass {
+        syntax: "*";
+        inherits: true;
+        initial-value: 0 12px 35px -10px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+    }
+    @property --ring-soft {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(59, 130, 246, 0.35);
+    }
+    @property --space-sm {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 12px;
+    }
+    @property --space-md {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 16px;
+    }
+    @property --line-faint {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.05);
+    }
+    @property --surface-glass {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(13, 20, 36, 0.72);
+    }
+    @property --muted {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #94a3b8;
+    }
+    @property --font-mono {
+        syntax: "*";
+        inherits: true;
+        initial-value: ui-monospace, "Cascadia Code", "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    }
+    @property --radius-sm {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 6px;
+    }
+    @property --ring {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #3b82f6;
+    }
+    @property --accent-soft {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #16223f;
+    }
+    @property --accent {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #60a5fa;
+    }
+    @property --ok {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #34d399;
+    }
+
+    .IdePanel {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-xl);
+        background: var(--accent-deep);
+        box-shadow: var(--shadow-glass);
+        transition: border-color 160ms ease;
+
+        &:hover {
+            &.--accent { border-color: var(--ring-soft); }
+            &.--ok { border-color: rgba(16, 185, 129, 0.5); }
+        }
+
+        & > .bar {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: 12px var(--space-md);
+            border-bottom: 1px solid var(--line-faint);
+            background: var(--surface-glass);
+        }
+
+        & .dots {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        & .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+
+            &.--rose { background: rgba(244, 63, 94, 0.8); }
+            &.--amber { background: rgba(245, 158, 11, 0.8); }
+            &.--emerald { background: rgba(16, 185, 129, 0.8); }
+        }
+
+        & .file {
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: var(--muted);
+            font-family: var(--font-mono);
+            font-size: 12px;
+        }
+
+        & .mode {
+            margin-left: auto;
+            flex: none;
+            padding: 2px 9px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--ring);
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        &.--ok .mode {
+            border-color: rgba(16, 185, 129, 0.4);
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--ok);
+        }
+
+        & > .body {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            overflow-x: auto;
+
+            & > .CodeBlock {
+                flex: 1;
+                border: none;
+                border-radius: 0;
+                background: transparent;
+            }
+        }
+    }
+}

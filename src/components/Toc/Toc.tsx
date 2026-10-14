@@ -1,0 +1,176 @@
+/**
+ * @author NetFeez <netfeez.dev@gmail.com>.
+ * @description Table of contents — builds navigation chips either from the sections it receives or by scanning the headings of a scope
+ *              (a selector string or an Element). Clicking scrolls to the section; the one crossing the viewport stays highlighted.
+ *              When given a scope it reacts to content changes, so chips never drift from the document.
+ * @license Apache-2.0
+ */
+
+import { Component, Element } from 'vizui';
+
+export class Toc extends Component<'nav', Toc.EventMap> {
+    static { this.css.load('Toc.css', import.meta); }
+
+    public readonly root: Element<Element.Type['nav']>;
+    private readonly vLinks = new Map<string, Element<HTMLAnchorElement>>();
+    private readonly vOnScroll = (): void => this.vTrack();
+    private readonly vScope: Toc.Source;
+    private readonly vSelector: string;
+    private vRawScope: ParentNode | null = null;
+    private readonly vObserver: MutationObserver | null = null;
+    private vRaf = 0;
+
+    /**
+     * @param source - Explicit sections, or a scope to scan for headings: a selector string or an Element.
+     * @param selector - The heading selector used when `source` is a scope.
+     */
+    public constructor(source: Toc.Source, selector = 'h2') {
+        super();
+        this.vScope = source;
+        this.vSelector = selector;
+        this.root = Element.new('nav').setClass('Toc');
+
+        if (Array.isArray(source)) {
+            for (const section of source) {
+                const link = this.vCreateLink(section.id, section.label);
+                this.vLinks.set(section.id, link);
+                this.root.append(link);
+            }
+        }
+        else {
+            this.vScan();
+            const scope = this.vResolveScope();
+            if (scope && typeof MutationObserver !== 'undefined') {
+                const observer = new MutationObserver(() => this.vScheduleScan());
+                observer.observe(scope, { childList: true, subtree: true });
+                this.vObserver = observer;
+            }
+        }
+
+        window.addEventListener('scroll', this.vOnScroll, { passive: true });
+        this.root.observer.on('remove', () => {
+            window.removeEventListener('scroll', this.vOnScroll);
+            this.vObserver?.disconnect();
+            if (this.vRaf) cancelAnimationFrame(this.vRaf);
+        });
+        this.vTrack();
+    }
+
+    /**
+     * Resolves the scope source to its raw DOM node.
+     * @returns The raw node to scan, or null when it cannot be found yet.
+     */
+    private vResolveScope(): ParentNode | null {
+        if (this.vRawScope) return this.vRawScope;
+        const source = this.vScope;
+        if (Array.isArray(source)) return null;
+        if (typeof source === 'string') return (this.vRawScope = document.querySelector(source));
+        if (source instanceof Element) return (this.vRawScope = source.root);
+        return (this.vRawScope = source as unknown as ParentNode);
+    }
+
+    /**
+     * Synchronizes the chips with the headings currently present in the scope.
+     */
+    private vScan(): void {
+        const scope = this.vResolveScope();
+        if (!scope) return;
+
+        const seen = new Set<string>();
+        for (const heading of Array.from(scope.querySelectorAll(this.vSelector))) {
+            if (!heading.id || seen.has(heading.id)) continue;
+            seen.add(heading.id);
+            const label = (heading.textContent ?? heading.id).trim();
+            const existing = this.vLinks.get(heading.id);
+            if (existing) {
+                existing.setText(label);
+                continue;
+            }
+            const link = this.vCreateLink(heading.id, label);
+            this.vLinks.set(heading.id, link);
+            this.root.append(link);
+        }
+        for (const [id, link] of this.vLinks) {
+            if (!seen.has(id)) {
+                link.remove();
+                this.vLinks.delete(id);
+            }
+        }
+    }
+
+    /**
+     * Schedules a scan for the next frame, coalescing bursts of mutations.
+     */
+    private vScheduleScan(): void {
+        cancelAnimationFrame(this.vRaf);
+        this.vRaf = requestAnimationFrame(() => this.vScan());
+    }
+
+    /**
+     * Builds the chip link for a section.
+     * @param id - The section id to jump to.
+     * @param label - The text of the chip.
+     * @returns The link element.
+     */
+    private vCreateLink(id: string, label: string): Element<HTMLAnchorElement> {
+        return Element.new('a')
+            .setClass('Toc-link')
+            .setAttribute('href', `#${id}`)
+            .setText(label)
+            .on('click', (event: MouseEvent) => this.vGo(id, event));
+    }
+
+    /**
+     * Scrolls to the section and marks its chip as active.
+     * @param id - The section id to jump to.
+     * @param event - The click event that triggered the navigation.
+     */
+    private vGo(id: string, event: MouseEvent): void {
+        event.preventDefault();
+        const target = document.getElementById(id);
+        if (target && typeof target.scrollIntoView === 'function')
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        this.vHighlight(id);
+    }
+
+    /**
+     * Sets the chip of the section currently crossing the top of the viewport.
+     */
+    private vTrack(): void {
+        const threshold = (window.innerHeight ?? 0) * 0.35;
+        let current: string | null = null;
+        for (const id of this.vLinks.keys()) {
+            const target = document.getElementById(id);
+            if (!target || typeof target.getBoundingClientRect !== 'function') continue;
+            if (target.getBoundingClientRect().top <= threshold) current = id;
+        }
+        if (current) this.vHighlight(current);
+    }
+
+    /**
+     * Marks one chip as active and clears the rest.
+     * @param id - The id of the active section.
+     */
+    private vHighlight(id: string): void {
+        for (const [key, link] of this.vLinks) link.toggleClass('active', key === id);
+    }
+}
+
+export namespace Toc {
+    /** A section reachable from the table of contents. **/
+    export interface Section {
+        /** The id of the element to scroll to. **/
+        id: string;
+        /** The text shown by the navigation chip. **/
+        label: string;
+    }
+
+    /** Explicit sections, or a scope to scan for headings: a selector string or an Element. **/
+    export type Source = readonly Section[] | string | Element;
+
+    export type EventMap = {
+        [key: string]: never;
+    };
+}
+
+export default Toc;

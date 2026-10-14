@@ -1,0 +1,17 @@
+# Build setting
+**/node_modules/
+**/dist/
+**/dist-*/
+
+# Hidden files, logging and environment files
+**/.**
+**/*.log
+**/*.env
+
+# Work space setting to Project IDX
+!.github/
+!.vscode/
+!.gitignore
+
+# Depflow dependencies
+lib/

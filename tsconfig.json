@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "jsx": "react-jsx",
+        "jsxImportSource": "vizui",
+        "strict": true,
+        "strictNullChecks": true,
+        "declaration": true,
+        "sourceMap": true,
+        "outDir": "dist",
+        "rootDir": "src",
+        "paths": {
+            "vizui/jsx-runtime": [
+                "./lib/vizui/jsx-runtime.d.ts",
+                "./lib/vizui/jsx-runtime.js"
+            ],
+            "vizui": [
+                "./lib/vizui/index.d.ts",
+                "./lib/vizui/index.js"
+            ],
+            "vizui/*": [
+                "./lib/vizui/*"
+            ],
+            "vizui.components/*": [
+                "./lib/vizui.components/*"
+            ]
+        },
+        "types": []
+    },
+    "include": [
+        "./src/**/*.ts",
+        "./src/**/*.tsx"
+    ]
+}
