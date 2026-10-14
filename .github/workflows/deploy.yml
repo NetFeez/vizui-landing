@@ -40,16 +40,15 @@ jobs:
           cp index.html favicon.ico ../temp/build/
           cp -r dist docs lib ../temp/build/
           cp index.html ../temp/build/404.html
-          rm -rf * .github
 
-          git fetch origin gh-pages || echo "Rama nueva"
+          git fetch origin gh-pages || echo "New branch"
           if git checkout gh-pages; then
-            git clean -fdx
+            echo "Existing branch"
           else
             git checkout --orphan gh-pages
-            rm -rf *
           fi
 
+          find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
           cp -r ../temp/build/* .
           touch .nojekyll
 
@@ -57,9 +56,9 @@ jobs:
           ls -l
           echo ---------------------------------------
 
-          git add .
+          git add -A -f .
           if git diff --cached --quiet; then
-             echo "No hay cambios detectados en los archivos. Saltando commit."
+             echo "No changes detected. Skipping commit."
           else
              git commit -m "deploy: landing $COMMIT"
              git push origin gh-pages --force
