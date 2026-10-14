@@ -1,0 +1,8 @@
+src/
+├─ app.ts                 composición raíz
+├─ renderer.tsx           registro de rutas
+├─ pages/                 vistas
+├─ components.smart/      componentes con estado
+├─ components/            funciones JSX sin estado
+├─ state/                 estado global reactivo
+└─ services/              servicios conectados
