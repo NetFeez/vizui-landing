@@ -1,0 +1,12 @@
+@layer component {
+    .EnhancedDateInput {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: fit-content;
+        & > .selects {
+            display: flex;
+            gap: 8px;
+        }
+    }
+}

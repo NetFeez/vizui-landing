@@ -1,0 +1,52 @@
+@layer component {
+    .Loading {
+        align-items: center;
+        background: var(--paper, rgba(255, 251, 252, 0.72));
+        backdrop-filter: blur(2px);
+        display: flex;
+        inset: 0;
+        justify-content: center;
+        position: absolute;
+        z-index: 5;
+
+        &[solid] {
+            background: var(--paper, #FFFBFC);
+            backdrop-filter: none;
+        }
+
+        & > .Loading-ring {
+            animation: loading-spin 0.9s linear infinite;
+            border: 3px solid var(--accent, #F9CED6);
+            border-radius: 50%;
+            border-top-color: var(--primary, #7F303D);
+            height: 2.5rem;
+            width: 2.5rem;
+        }
+
+        & > .Loading-icon {
+            animation: loading-pulse 1.8s ease-in-out infinite;
+            height: 1.6rem;
+            left: calc(50% - 0.8rem);
+            object-fit: contain;
+            position: absolute;
+            top: calc(50% - 0.8rem);
+            width: 1.6rem;
+        }
+    }
+
+    @keyframes loading-spin {
+        to { transform: rotate(360deg); }
+    }
+
+    @keyframes loading-pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.85; transform: scale(0.92); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .Loading {
+            & > .Loading-ring { animation-duration: 2.4s; }
+            & > .Loading-icon { animation: none; }
+        }
+    }
+}
