@@ -1,0 +1,348 @@
+@layer page {
+    @property --space-lg {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 24px;
+    }
+    @property --line {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.08);
+    }
+    @property --radius-xl {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 16px;
+    }
+    @property --surface-glass {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(13, 20, 36, 0.72);
+    }
+    @property --shadow-glass {
+        syntax: "*";
+        inherits: true;
+        initial-value: 0 12px 35px -10px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+    }
+    @property --hairline {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.13);
+    }
+    @property --line-faint {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.05);
+    }
+    @property --muted {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #94a3b8;
+    }
+    @property --font-mono {
+        syntax: "*";
+        inherits: true;
+        initial-value: ui-monospace, "Cascadia Code", "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    }
+    @property --accent {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #60a5fa;
+    }
+    @property --surface-alt {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #141b2e;
+    }
+    @property --soft {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #cbd5e1;
+    }
+    @property --space-sm {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 12px;
+    }
+    @property --radius-md {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 8px;
+    }
+    @property --glow-accent {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(59, 130, 246, 0.45);
+    }
+    @property --ink {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #f1f5f9;
+    }
+    @property --ok {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #34d399;
+    }
+    @property --surface-sunken {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #0a0f1d;
+    }
+    @property --faint {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #64748b;
+    }
+    @property --danger {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #fb7185;
+    }
+
+    .SandBox {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-lg);
+        width: 100%;
+        max-width: 1200px;
+
+        & > .grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: var(--space-lg);
+            align-items: stretch;
+        }
+
+        & > .grid > .column {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+            min-width: 0;
+        }
+
+        & .panel {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-xl);
+            background: var(--surface-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: var(--shadow-glass);
+            overflow: hidden;
+            transition: border-color 160ms ease;
+
+            &:hover { border-color: var(--hairline); }
+        }
+
+        & .panel > .bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--line-faint);
+            background: rgba(10, 15, 29, 0.8);
+        }
+
+        & .panel > .bar > .dots {
+            display: inline-flex;
+            gap: 8px;
+
+            & > .dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+
+                &.dot--rose { background: rgba(244, 63, 94, 0.8); }
+                &.dot--amber { background: rgba(245, 158, 11, 0.8); }
+                &.dot--emerald { background: rgba(16, 185, 129, 0.8); }
+            }
+        }
+
+        & .panel > .bar > .file {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: var(--muted);
+            font-family: var(--font-mono);
+            font-size: 12px;
+        }
+
+        & .panel > .bar > .chip {
+            margin-left: auto;
+            flex: none;
+            padding: 2px 10px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 999px;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        & .panel > .bar > .status {
+            margin-left: auto;
+            flex: none;
+            padding: 2px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: var(--surface-alt);
+            color: var(--muted);
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 600;
+            transition: color 150ms ease, border-color 150ms ease;
+        }
+
+        & .panel--preview:hover > .bar > .status { color: var(--muted); }
+
+        & .editor {
+            display: block;
+            width: 100%;
+            min-height: 340px;
+            max-height: 60vh;
+            padding: 16px;
+            border: none;
+            border-radius: 0;
+            background: transparent;
+            color: var(--soft);
+            caret-color: #e2e8f0;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            line-height: 21px;
+            tab-size: 2;
+            outline: none;
+            white-space: pre;
+            overflow-wrap: normal;
+            overflow: auto;
+            resize: vertical;
+            -webkit-user-modify: read-write-plaintext-only;
+
+            &.editor--css {
+                min-height: 170px;
+            }
+
+            &:focus-visible { outline: none; }
+
+            &::selection { background: rgba(59, 130, 246, 0.4); color: inherit; }
+        }
+
+        & .editor--css::selection { background: rgba(6, 182, 212, 0.35); color: inherit; }
+
+        & .token--comment { color: #64748b; font-style: italic; }
+        & .token--keyword { color: #c084fc; }
+        & .token--string { color: #34d399; }
+        & .token--number { color: #fbbf24; }
+        & .token--tag { color: #fb7185; }
+        & .token--type { color: #38bdf8; }
+        & .token--selector { color: #fb7185; }
+        & .token--property { color: #38bdf8; }
+        & .token--value { color: #cbd5e1; }
+
+        & .panel > .panel-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: var(--space-sm);
+            padding: 10px 14px;
+            border-top: 1px solid var(--line-faint);
+            background: rgba(10, 15, 29, 0.6);
+        }
+
+        & .panel > .panel-actions > .action {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            border: 1px solid transparent;
+            border-radius: var(--radius-md);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 130ms ease, border-color 130ms ease, transform 100ms ease;
+
+            &.action--primary {
+                background: #2563eb;
+                color: #ffffff;
+                box-shadow: 0 0 30px -12px var(--glow-accent);
+
+                &:hover { background: #3b82f6; }
+            }
+
+            &.action--ghost {
+                border-color: var(--line);
+                background: var(--surface-alt);
+                color: var(--muted);
+
+                &:hover { border-color: var(--hairline); color: var(--ink); }
+            }
+
+            &:active { transform: scale(0.96); }
+
+            & .icon { width: 13px; height: 13px; }
+        }
+
+        & .panel--preview {
+            position: relative;
+
+            & > .bar > .file > .live {
+                width: 9px;
+                height: 9px;
+                border-radius: 50%;
+                background: var(--ok);
+                box-shadow: 0 0 10px var(--ok);
+                animation: pulse-soft 2s ease-in-out infinite;
+            }
+        }
+
+        & .panel > .stage {
+            flex: 1;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            min-height: 220px;
+            padding: 24px 16px;
+            overflow: auto;
+            border-radius: 0;
+            background:
+                radial-gradient(50% 60% at 50% 0%, rgba(37, 99, 235, 0.08), transparent 70%),
+                var(--surface-sunken);
+
+            &.empty::after {
+                content: "Sin instancia montada — arregla el error y vuelve a ejecutar.";
+                align-self: center;
+                color: var(--faint);
+                font-size: 13px;
+            }
+        }
+
+        & .panel > .error {
+            display: none;
+            margin: 0;
+            padding: 12px 16px;
+            border-top: 1px solid rgba(244, 63, 94, 0.35);
+            background: rgba(244, 63, 94, 0.08);
+            color: var(--danger);
+            font-family: var(--font-mono);
+            font-size: 12px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+
+            &.visible { display: block; animation: pulse-soft 1s ease-in-out; }
+        }
+
+        @media (max-width: 980px) {
+            & > .grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+    }
+}
+

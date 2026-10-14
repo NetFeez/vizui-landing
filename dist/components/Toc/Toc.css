@@ -1,0 +1,63 @@
+@layer component {
+    @property --hairline {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.13);
+    }
+    @property --surface-alt {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #141b2e;
+    }
+    @property --muted {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #94a3b8;
+    }
+    @property --accent {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #60a5fa;
+    }
+    @property --glow-accent {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(59, 130, 246, 0.45);
+    }
+    @property --accent-soft {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #16223f;
+    }
+
+    .Toc {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+
+        & > .Toc-link {
+            padding: 6px 12px;
+            border: 1px solid var(--hairline);
+            border-radius: 999px;
+            background: var(--surface-alt);
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: border-color 120ms ease, color 120ms ease, background 120ms ease, box-shadow 120ms ease;
+
+            &:hover {
+                border-color: var(--accent);
+                color: var(--accent);
+                box-shadow: 0 0 14px var(--glow-accent);
+                text-decoration: none;
+            }
+
+            &.active {
+                border-color: var(--accent);
+                background: var(--accent-soft);
+                color: var(--accent);
+            }
+        }
+    }
+}

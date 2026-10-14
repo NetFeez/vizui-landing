@@ -1,0 +1,99 @@
+@layer component {
+    @property --space-sm {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 12px;
+    }
+    @property --space-xs {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 8px;
+    }
+    @property --line {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.08);
+    }
+    @property --radius-md {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 8px;
+    }
+    @property --surface {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #0d1322;
+    }
+    @property --font-mono {
+        syntax: "*";
+        inherits: true;
+        initial-value: ui-monospace, "Cascadia Code", "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    }
+    @property --accent {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #60a5fa;
+    }
+    @property --hairline {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.13);
+    }
+    @property --radius-sm {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 6px;
+    }
+    @property --elevated {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #1a2338;
+    }
+    @property --ink {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #f1f5f9;
+    }
+    @property --glow-accent {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(59, 130, 246, 0.45);
+    }
+
+    .JsxCounter,
+    .ImperativeCounter {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-sm);
+        padding: var(--space-xs) var(--space-sm);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        background: var(--surface);
+
+        & .Counter-value {
+            min-width: 26px;
+            text-align: right;
+            font-family: var(--font-mono);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+            font-variant-numeric: tabular-nums;
+        }
+
+        & .Counter-button {
+            padding: 5px 12px;
+            border: 1px solid var(--hairline);
+            border-radius: var(--radius-sm);
+            background: var(--elevated);
+            color: var(--ink);
+            font-size: 13px;
+            font-weight: 600;
+            transition: border-color 120ms ease, box-shadow 120ms ease;
+
+            &:hover {
+                border-color: var(--accent);
+                box-shadow: 0 0 14px var(--glow-accent);
+            }
+        }
+    }
+}

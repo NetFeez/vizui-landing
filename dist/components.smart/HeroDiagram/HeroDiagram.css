@@ -1,0 +1,360 @@
+@layer component {
+    @property --space-lg {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 24px;
+    }
+    @property --line {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.08);
+    }
+    @property --radius-xl {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 16px;
+    }
+    @property --surface-glass {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(13, 20, 36, 0.72);
+    }
+    @property --shadow-glass {
+        syntax: "*";
+        inherits: true;
+        initial-value: 0 12px 35px -10px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+    }
+    @property --space-sm {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 12px;
+    }
+    @property --muted {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #94a3b8;
+    }
+    @property --font-mono {
+        syntax: "*";
+        inherits: true;
+        initial-value: ui-monospace, "Cascadia Code", "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    }
+    @property --accent {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #60a5fa;
+    }
+    @property --ring {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #3b82f6;
+    }
+    @property --accent-soft {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #16223f;
+    }
+    @property --radius-lg {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 12px;
+    }
+    @property --glow-accent {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(59, 130, 246, 0.45);
+    }
+    @property --radius-xs {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 4px;
+    }
+    @property --ink {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #f1f5f9;
+    }
+    @property --hairline {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.13);
+    }
+    @property --radius-md {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 8px;
+    }
+    @property --surface-alt {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #141b2e;
+    }
+    @property --ok {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #34d399;
+    }
+    @property --warn {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #fbbf24;
+    }
+    @property --line-faint {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.05);
+    }
+    @property --surface-sunken {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #0a0f1d;
+    }
+    @property --faint {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #64748b;
+    }
+
+    .HeroDiagram {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        overflow: hidden;
+        padding: var(--space-lg);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-xl);
+        background: var(--surface-glass);
+        box-shadow: var(--shadow-glass);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+
+        & > .head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-sm);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--line);
+        }
+
+        & .legend {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: var(--muted);
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+        }
+
+        & .pulse {
+            position: relative;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+
+            &::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: 50%;
+                background: var(--accent);
+                animation: ping-soft 2s ease-out infinite;
+            }
+        }
+
+        & .badge {
+            flex: none;
+            padding: 3px 10px;
+            border: 1px solid var(--ring);
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 11px;
+        }
+
+        & > .tree {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: var(--space-lg) 0;
+            font-family: var(--font-mono);
+            font-size: 14px;
+            user-select: none;
+        }
+
+        & .root,
+        & .component {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            border-radius: var(--radius-lg);
+            transition: transform 150ms ease;
+        }
+
+        & .root {
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            background: rgba(23, 37, 84, 0.9);
+            color: #bfdbfe;
+            box-shadow: 0 0 50px -12px var(--glow-accent);
+            animation: glow-breathe 4.5s ease-in-out infinite;
+
+            &:hover { transform: scale(1.05); }
+
+            & > .chip { background: rgba(59, 130, 246, 0.3); color: #dbeafe; }
+        }
+
+        & .component {
+            border: 1px solid rgba(99, 102, 241, 0.5);
+            background: rgba(49, 46, 129, 0.6);
+            color: #c7d2fe;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+
+            &:hover { transform: scale(1.05); }
+
+            & > .chip { background: rgba(99, 102, 241, 0.3); color: #e0e7ff; }
+        }
+
+        & .tag { font-weight: 700; }
+
+        & .chip {
+            flex: none;
+            padding: 2px 8px;
+            border-radius: var(--radius-xs);
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--ink);
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        & .connector {
+            position: relative;
+            width: 2px;
+            height: 28px;
+            background: linear-gradient(to bottom, #3b82f6, #6366f1);
+
+            &::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #67e8f9;
+                transform: translate(-50%, -50%);
+                animation: pulse-soft 1.8s ease-in-out infinite;
+            }
+        }
+
+        & .fork-group {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            width: min(320px, 100%);
+        }
+
+        & .fork {
+            height: 14px;
+            border-bottom: 2px solid var(--hairline);
+            border-left: 2px solid var(--hairline);
+            border-right: 2px solid var(--hairline);
+        }
+
+        & .children {
+            display: flex;
+            justify-content: space-between;
+            gap: var(--space-sm);
+            width: 100%;
+        }
+
+        & .branch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 0;
+        }
+
+        & .branch > .stem {
+            width: 2px;
+            height: 10px;
+            background: var(--hairline);
+        }
+
+        & .node {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            height: 42px;
+            padding: 0 14px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--line);
+            background: var(--surface-alt);
+            color: var(--muted);
+            box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.5);
+            font-family: var(--font-mono);
+            font-size: 12px;
+        }
+
+        & .node.--value {
+            border-color: rgba(52, 211, 153, 0.45);
+            color: var(--ok);
+        }
+
+        & .node > .value,
+        & .node > .plus {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 22px;
+            padding: 0 8px;
+            border-radius: var(--radius-xs);
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+
+        & .value {
+            min-width: 22px;
+            border: 1px solid rgba(52, 211, 153, 0.5);
+            background: rgba(6, 78, 59, 0.8);
+            color: #ffffff;
+        }
+
+        & .node.--button {
+            cursor: pointer;
+            border-color: rgba(251, 191, 36, 0.4);
+            color: var(--warn);
+            transition: border-color 140ms ease, transform 140ms ease;
+
+            &:hover { border-color: var(--warn); transform: translateY(-1px); }
+            &:active { transform: scale(0.96); }
+        }
+
+        & .plus {
+            background: rgba(251, 191, 36, 0.14);
+            color: var(--warn);
+        }
+
+        & > .caption {
+            margin: 0;
+            padding: var(--space-sm);
+            border: 1px solid var(--line-faint);
+            border-radius: var(--radius-lg);
+            background: var(--surface-sunken);
+            color: var(--faint);
+            font-size: 12px;
+            line-height: 1.55;
+            text-align: center;
+        }
+    }
+}

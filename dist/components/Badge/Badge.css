@@ -1,0 +1,77 @@
+@layer component {
+    @property --surface-alt {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #141b2e;
+    }
+    @property --hairline {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.13);
+    }
+    @property --muted {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #94a3b8;
+    }
+    @property --accent {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #60a5fa;
+    }
+    @property --ok {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #34d399;
+    }
+    @property --warn {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #fbbf24;
+    }
+    @property --danger {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #fb7185;
+    }
+
+    .Badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+        line-height: 1.4;
+        background: var(--surface-alt);
+        border: 1px solid var(--hairline);
+        color: var(--muted);
+
+        &.--accent { background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.25); color: var(--accent); }
+        &.--ok     { background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2); color: var(--ok); }
+        &.--warn   { background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.2); color: var(--warn); }
+        &.--danger { background: rgba(244, 63, 94, 0.1); border-color: rgba(244, 63, 94, 0.2); color: var(--danger); }
+
+        & > .label { display: inline-block; }
+
+        & > .dot {
+            position: relative;
+            flex: none;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+
+            &::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: 50%;
+                background: currentColor;
+                animation: ping-soft 1.6s ease-out infinite;
+            }
+        }
+    }
+}

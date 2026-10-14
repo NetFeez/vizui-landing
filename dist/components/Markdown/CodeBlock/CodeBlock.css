@@ -1,0 +1,81 @@
+@layer component {
+    @property --accent-deep {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #0d1322;
+    }
+    @property --line {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.08);
+    }
+    @property --radius-lg {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 12px;
+    }
+    @property --font-mono {
+        syntax: "*";
+        inherits: true;
+        initial-value: ui-monospace, "Cascadia Code", "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    }
+    @property --code-plain {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #cbd5e1;
+    }
+    @property --code-comment {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #64748b;
+    }
+    @property --code-keyword {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #c084fc;
+    }
+    @property --code-string {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #34d399;
+    }
+    @property --code-number {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #fbbf24;
+    }
+    @property --code-tag {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #fb7185;
+    }
+    @property --code-type {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #38bdf8;
+    }
+
+    .CodeBlock {
+        margin: 0;
+        padding: 20px;
+        background: var(--accent-deep);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        overflow-x: auto;
+
+        & > code {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            line-height: 1.65;
+            color: var(--code-plain);
+            white-space: pre;
+        }
+
+        & .CodeBlock-token--comment { color: var(--code-comment); font-style: italic; }
+        & .CodeBlock-token--keyword { color: var(--code-keyword); }
+        & .CodeBlock-token--string { color: var(--code-string); }
+        & .CodeBlock-token--number { color: var(--code-number); }
+        & .CodeBlock-token--tag { color: var(--code-tag); }
+        & .CodeBlock-token--type { color: var(--code-type); }
+    }
+}

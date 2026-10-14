@@ -1,0 +1,147 @@
+@layer component {
+    @property --line {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.08);
+    }
+    @property --radius-xl {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 16px;
+    }
+    @property --surface-glass {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(13, 20, 36, 0.72);
+    }
+    @property --shadow-raise {
+        syntax: "*";
+        inherits: true;
+        initial-value: 0 18px 40px -18px rgba(0, 0, 0, 0.7);
+    }
+    @property --radius-lg {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 12px;
+    }
+    @property --faint {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #64748b;
+    }
+    @property --accent-soft {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #16223f;
+    }
+    @property --accent {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #60a5fa;
+    }
+    @property --ring {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #3b82f6;
+    }
+    @property --line-faint {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.05);
+    }
+    @property --radius-xs {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 4px;
+    }
+    @property --surface {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #0d1322;
+    }
+    @property --ink {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #f1f5f9;
+    }
+    @property --font-mono {
+        syntax: "*";
+        inherits: true;
+        initial-value: ui-monospace, "Cascadia Code", "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    .SectionDock {
+        position: fixed;
+        top: 50%;
+        right: 32px;
+        z-index: 40;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        padding: 8px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-xl);
+        background: var(--surface-glass);
+        box-shadow: var(--shadow-raise);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        transform: translateY(-50%);
+
+        & > .link {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-lg);
+            color: var(--faint);
+            text-decoration: none;
+            transition: color 130ms ease, background 130ms ease, box-shadow 130ms ease;
+
+            &:hover { background: var(--accent-soft); color: var(--accent); text-decoration: none; }
+
+            &.active {
+                background: var(--accent-soft);
+                color: var(--accent);
+                box-shadow: inset 0 0 0 1px var(--ring);
+            }
+        }
+
+        & .icon {
+            display: inline-flex;
+
+            & > svg { width: 16px; height: 16px; display: block; }
+        }
+
+        & .tip {
+            position: absolute;
+            top: 50%;
+            right: calc(100% + 12px);
+            padding: 4px 10px;
+            border: 1px solid var(--line-faint);
+            border-radius: var(--radius-xs);
+            background: var(--surface);
+            color: var(--ink);
+            font-family: var(--font-mono);
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            box-shadow: var(--shadow-raise);
+            transform: translateY(-50%) translateX(4px);
+            transition: opacity 130ms ease, transform 130ms ease;
+        }
+
+        & .link:hover .tip,
+        & .link:focus-visible .tip {
+            opacity: 1;
+            transform: translateY(-50%) translateX(0);
+        }
+
+        @media (min-width: 1280px) {
+            display: flex;
+        }
+    }
+}

@@ -1,0 +1,151 @@
+@layer page {
+    @property --space-sm {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 12px;
+    }
+    @property --space-2xl {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 48px;
+    }
+    @property --space-lg {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 24px;
+    }
+    @property --radius-sm {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 6px;
+    }
+    @property --space-md {
+        syntax: "<length>";
+        inherits: true;
+        initial-value: 16px;
+    }
+    @property --line {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: rgba(255, 255, 255, 0.08);
+    }
+    @property --danger {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #fb7185;
+    }
+    @property --surface {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #0d1322;
+    }
+    @property --muted {
+        syntax: "<color>";
+        inherits: false;
+        initial-value: #94a3b8;
+    }
+
+    .DocsPage {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 1120px;
+
+        & > .PageHeader { margin-bottom: var(--space-sm); }
+
+        & > .body {
+            display: grid;
+            grid-template-columns: 220px minmax(0, 1fr);
+            gap: var(--space-2xl);
+            align-items: start;
+        }
+
+        & > .body > .DocsPage-toc {
+            position: sticky;
+            top: calc(84px + var(--space-lg));
+            max-height: calc(100vh - 96px);
+            overflow-y: auto;
+            scrollbar-width: none;
+
+            &::-webkit-scrollbar { display: none; }
+
+            & > .Toc {
+                flex-direction: column;
+                align-items: stretch;
+
+                & > .Toc-link { border-radius: var(--radius-sm); }
+            }
+        }
+
+        & > .body > .content {
+            min-width: 0;
+            max-width: 780px;
+
+            & > .error {
+                display: flex;
+                flex-direction: column;
+                gap: var(--space-sm);
+                padding: var(--space-md);
+                border: 1px solid var(--line);
+                border-left: 3px solid var(--danger);
+                border-radius: var(--radius-sm);
+                background: var(--surface);
+
+                & > p {
+                    margin: 0;
+                    color: var(--danger);
+                    font-size: 13px;
+                }
+            }
+        }
+
+        & > .DocsPage-about {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+            margin-top: var(--space-2xl);
+
+            & > .about-title {
+                margin: 0;
+                font-size: 26px;
+                font-weight: 800;
+                letter-spacing: -0.4px;
+            }
+
+            & > .about-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: var(--space-lg);
+            }
+
+            & > .about-grid > .Card > .body > .contact {
+                margin: var(--space-sm) 0 0;
+                font-size: 13px;
+                color: var(--muted);
+            }
+        }
+
+        @media (max-width: 900px) {
+            & > .body {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            & > .body > .DocsPage-toc {
+                position: static;
+                max-height: none;
+                overflow: visible;
+
+                & > .Toc {
+                    flex-direction: row;
+                    flex-wrap: wrap;
+
+                    & > .Toc-link { border-radius: 999px; }
+                }
+            }
+        }
+
+        @media (max-width: 720px) {
+            & > .DocsPage-about > .about-grid { grid-template-columns: 1fr; }
+        }
+    }
+}
