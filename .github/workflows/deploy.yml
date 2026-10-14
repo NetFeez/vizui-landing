@@ -1,0 +1,66 @@
+name: Build and deploy page
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: config git
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+
+      - name: Install and Build
+        run: |
+          npm install
+          npm run build
+
+      - name: Manual Deploy to gh-pages
+        run: |
+          COMMIT=${GITHUB_SHA::7}
+
+          mkdir -p ../temp/build
+          cp index.html favicon.ico ../temp/build/
+          cp -r dist docs lib ../temp/build/
+          cp index.html ../temp/build/404.html
+          rm -rf * .github
+
+          git fetch origin gh-pages || echo "Rama nueva"
+          if git checkout gh-pages; then
+            git clean -fdx
+          else
+            git checkout --orphan gh-pages
+            rm -rf *
+          fi
+
+          cp -r ../temp/build/* .
+          touch .nojekyll
+
+          echo before --------------------------------
+          ls -l
+          echo ---------------------------------------
+
+          git add .
+          if git diff --cached --quiet; then
+             echo "No hay cambios detectados en los archivos. Saltando commit."
+          else
+             git commit -m "deploy: landing $COMMIT"
+             git push origin gh-pages --force
+          fi
